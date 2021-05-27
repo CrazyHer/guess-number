@@ -8,6 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.util.Pair;
+
+import java.util.Arrays;
 
 public class RankingList extends Pane {
     private Button returnBtn;
@@ -44,7 +47,9 @@ public class RankingList extends Pane {
     }
 
     private void renderList() {
-        var records = LocalStorage.getAll();
+        Pair<String, String>[] records = LocalStorage.getAll();
+        // 对记录进行降序排序
+        Arrays.sort(records, (o1, o2) -> Integer.parseInt(o2.getValue()) - Integer.parseInt(o1.getValue()));
         for (int i = 0; i < (Math.min(records.length, 15)); i++) {
             Label label = new Label(String.valueOf(i + 1));
             label.setLayoutX(25);
